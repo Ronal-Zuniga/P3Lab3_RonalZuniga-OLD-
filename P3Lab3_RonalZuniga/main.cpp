@@ -6,6 +6,7 @@ using namespace std;
 bool contiene(char x, vector<char> arreglo);
 vector<char> letrasUnicas(string cadena);
 int* cuenta(string cadena, vector<char> vector);
+int* posiciones(int* entrada, int size);
 
 int main(int argc, char** argv) {
 	int opcion = 0;
@@ -75,6 +76,7 @@ int main(int argc, char** argv) {
 				cout << vector.at(i) << "  ";
 			}
 			cout << "]";
+			cout << endl;
 			cout << "La solucion es: [";
 			for(int i = 0; i < vector.size(); i++){
 				cout << array [i] << "  ";
@@ -86,11 +88,44 @@ int main(int argc, char** argv) {
 		}//fin opcion 2
 
 		if(opcion == 3) {
-
+			cout << "EJERCICIO 3" << endl;
+			int* entrada;
+			int size;
+			cout << "Ingrese el tamanho del arreglo: ";
+			cin >> size;
+			entrada = new int [size];
+			for(int x = 0; x < size; x++){
+				int n;
+				cout << "Ingrese un numero entero: ";
+				cin >> n;
+				entrada[x] = n;
+			}
+			cout << endl;
+			cout << "Arreglo Ingresado: [";
+			for(int i = 0; i < size; i++){
+				cout << entrada [i] << "  ";
+			}
+			cout << "]";
+			cout << endl;
+			int* array = posiciones(entrada, size);
+			cout << endl;
+			cout << "La solucion es: [";
+			for(int j = 0; j < size; j++){
+				cout << array [j] << "  ";
+			}
+			cout << "]";
+			cout << endl;
+			cout << endl;
+			delete []array;
+			delete []entrada;
 		}//fin opcion 3
 
 		if(opcion == 4) {
-
+			cout << "EJERCICIO 4" << endl;
+			string cadena;
+			cout << "Ingrese la cadena: ";
+			cin >> cadena;
+			
 		}//fin opcion 4
 
 	}//fin while menu
@@ -148,6 +183,29 @@ int* cuenta(string cadena, vector<char> vector){
     return array;
 }
 
+int* posiciones(int* entrada, int size){
+    int* array = new int[size];
+    for(int i = 0; i < size; i++){
+        int mayor = -1;
+		int posicion = 0; 
+        for(int j = 0; j < size; j++){
+            if(entrada[j] > mayor){
+                mayor = entrada[j];
+                posicion = j;
+            }
+        }
+        array[i] = posicion;
+        entrada[posicion] = -1;
+    }
+    return array;
+}
+
+/*string ordenFrecuencia(string cadena){
+	vector<char> letras = letrasUnicas(cadena);
+	int* frecuencia = cuenta(cadena, vector);
+	
+	
+}*/
 
 
 
