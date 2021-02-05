@@ -7,6 +7,7 @@ bool contiene(char x, vector<char> arreglo);
 vector<char> letrasUnicas(string cadena);
 int* cuenta(string cadena, vector<char> vector);
 int* posiciones(int* entrada, int size);
+string ordenFrecuencia(string cadena);
 
 int main(int argc, char** argv) {
 	int opcion = 0;
@@ -78,7 +79,7 @@ int main(int argc, char** argv) {
 			cout << "]";
 			cout << endl;
 			cout << "La solucion es: [";
-			for(int i = 0; i < vector.size(); i++){
+			for(int i = 0; i < vector.size(); i++) {
 				cout << array [i] << "  ";
 			}
 			cout << "]";
@@ -94,7 +95,7 @@ int main(int argc, char** argv) {
 			cout << "Ingrese el tamanho del arreglo: ";
 			cin >> size;
 			entrada = new int [size];
-			for(int x = 0; x < size; x++){
+			for(int x = 0; x < size; x++) {
 				int n;
 				cout << "Ingrese un numero entero: ";
 				cin >> n;
@@ -102,7 +103,7 @@ int main(int argc, char** argv) {
 			}
 			cout << endl;
 			cout << "Arreglo Ingresado: [";
-			for(int i = 0; i < size; i++){
+			for(int i = 0; i < size; i++) {
 				cout << entrada [i] << "  ";
 			}
 			cout << "]";
@@ -110,7 +111,7 @@ int main(int argc, char** argv) {
 			int* array = posiciones(entrada, size);
 			cout << endl;
 			cout << "La solucion es: [";
-			for(int j = 0; j < size; j++){
+			for(int j = 0; j < size; j++) {
 				cout << array [j] << "  ";
 			}
 			cout << "]";
@@ -125,7 +126,11 @@ int main(int argc, char** argv) {
 			string cadena;
 			cout << "Ingrese la cadena: ";
 			cin >> cadena;
-			
+			cout << endl;
+			string resultado = ordenFrecuencia(cadena);
+			cout << "Resultado = " << resultado;
+			cout << endl;
+			cout << endl;
 		}//fin opcion 4
 
 	}//fin while menu
@@ -165,47 +170,60 @@ vector<char> letrasUnicas(string cadena) {
 	return letras;
 }//fin metodo letras unicas
 
-int* cuenta(string cadena, vector<char> vector){
+int* cuenta(string cadena, vector<char> vector) {
 	int* array;
-    int contador = 0;
-    array = new int[vector.size()];
-    for (int i = 0; i < vector.size(); i++) {
-        char letra = vector[i];
-        contador = 0;
-        for (int j = 0; j < cadena.length(); j++) {
-            if (letra == cadena[j]) {
-                contador++;
-            }
-        }
-        array[i] = contador;
-        contador = 0;
-    }
-    return array;
+	int contador = 0;
+	array = new int[vector.size()];
+	for (int i = 0; i < vector.size(); i++) {
+		char letra = vector[i];
+		contador = 0;
+		for (int j = 0; j < cadena.length(); j++) {
+			if (letra == cadena[j]) {
+				contador++;
+			}
+		}
+		array[i] = contador;
+		contador = 0;
+	}
+	return array;
 }
 
-int* posiciones(int* entrada, int size){
-    int* array = new int[size];
-    for(int i = 0; i < size; i++){
-        int mayor = -1;
-		int posicion = 0; 
-        for(int j = 0; j < size; j++){
-            if(entrada[j] > mayor){
-                mayor = entrada[j];
-                posicion = j;
-            }
-        }
-        array[i] = posicion;
-        entrada[posicion] = -1;
-    }
-    return array;
+int* posiciones(int* entrada, int size) {
+	int* array = new int[size];
+	for(int i = 0; i < size; i++) {
+		int mayor = -1;
+		int posicion = 0;
+		for(int j = 0; j < size; j++) {
+			if(entrada[j] > mayor) {
+				mayor = entrada[j];
+				posicion = j;
+			}
+		}
+		array[i] = posicion;
+		entrada[posicion] = -1;
+	}
+	return array;
 }
 
-/*string ordenFrecuencia(string cadena){
+string ordenFrecuencia(string cadena) {
+	string resultado = "";
 	vector<char> letras = letrasUnicas(cadena);
-	int* frecuencia = cuenta(cadena, vector);
-	
-	
-}*/
+	int* frecuencia = NULL;
+	frecuencia = cuenta(cadena, letras);
+	int* positions = posiciones(frecuencia, letras.size());
+	cout << endl;
+	for(int i = 0; i < letras.size(); i++) {
+		int pos = positions [i];
+		int cant = frecuencia[pos];
+		int contador = 0;
+		while(contador < cant) {
+			char x = letras.at(pos);
+			resultado += x;
+			contador ++;
+		}
+	}
+	return resultado;
+}
 
 
 
